@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CubeCornerDirections
+public static class CubeCornerDirections
 {
     private enum Direction
     {
@@ -35,6 +35,20 @@ public class CubeCornerDirections
                 return new Vector3(1, 1, 1) * scale;
         }
         return new Vector3(0, 0, 0);
+    }
+
+    public static Vector3[] allDirections(float scale)
+    {
+        return new Vector3[]{
+            leftBottomBack(scale),
+            rightBottomBack(scale),
+            rightTopBack(scale),
+            leftTopBack(scale),
+            leftTopFront(scale),
+            rightTopFront(scale),
+            rightBottomFront(scale),
+            leftBottomFront(scale)
+        };
     }
 
     public static Vector3 leftBottomBack(float scale)

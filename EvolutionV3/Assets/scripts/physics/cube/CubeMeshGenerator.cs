@@ -3,10 +3,9 @@ using UnityEditor;
 
 public class CubeMeshGenerator
 {
-    //TODO: Move these into a cubemesh class
-    public static Mesh createMesh(Mesh mesh, float cubeSize)
+    public static Mesh createMesh(Mesh mesh, float cubeSize, float cornerSize)
     {
-        Vector3[] vertices = createVertices(cubeSize);
+        Vector3[] vertices = createVertices(cubeSize-(cornerSize*2));
         int[] triangles = createTriangles();
         return createMeshFromVerticesAndTriangles(mesh, vertices, triangles);
     }
@@ -14,16 +13,7 @@ public class CubeMeshGenerator
     private static Vector3[] createVertices(float cubeSize)
     {
         float halfCubeSize = cubeSize / 2;
-        Vector3[] vertices = new Vector3[]{
-            CubeCornerDirections.leftBottomBack(halfCubeSize),
-            CubeCornerDirections.rightBottomBack(halfCubeSize),
-            CubeCornerDirections.rightTopBack(halfCubeSize),
-            CubeCornerDirections.leftTopBack(halfCubeSize),
-            CubeCornerDirections.leftTopFront(halfCubeSize),
-            CubeCornerDirections.rightTopFront(halfCubeSize),
-            CubeCornerDirections.rightBottomFront(halfCubeSize),
-            CubeCornerDirections.leftBottomFront(halfCubeSize)
-        };
+        Vector3[] vertices = CubeCornerDirections.allDirections(halfCubeSize);
         return vertices;
     }
 
@@ -55,4 +45,20 @@ public class CubeMeshGenerator
         return mesh;
     }
 
+    public static CubeCorner[] createCorners(Transform parent, Vector3[] cornerPositions, float cornerSize)
+    {
+        Vector3[] cornerSizeMod = CubeCornerDirections.allDirections(cornerSize);
+        CubeCorner[] corners = new CubeCorner[8];//TODO: HARDCODEY
+        for (int i = 0; i < 8; i++)
+        {
+            corners[i] = SoftCubeCorner.createInstance(parent, cornerSize, cornerPositions[i], cornerSizeMod[i]);
+        }
+        corners = joinCorners(corners);
+        return corners;
+    }
+
+    private static CubeCorner[] joinCorners(CubeCorner[] corners)
+    {
+        return corners;
+    }
 }
