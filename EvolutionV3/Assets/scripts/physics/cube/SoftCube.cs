@@ -10,6 +10,7 @@ public class SoftCube : MonoBehaviour, Cube
     private const float CUBE_SIZE = 1f;
     private const float CORNER_SIZE = 0.1f;
     private CubeCorner[] corners = new CubeCorner[NO_OF_CORNERS];
+    private CubeCorner cubeCentre;
     private Vector3[] vertices;
     private Mesh mesh;
 
@@ -42,7 +43,9 @@ public class SoftCube : MonoBehaviour, Cube
     private void create()
     {
         createMesh();
+        createCentre();
         createCorners();
+        connectCorners();
     }
 
     public void createMesh()
@@ -52,9 +55,9 @@ public class SoftCube : MonoBehaviour, Cube
         vertices = mesh.vertices;
     }
 
-    private float sizeMinusCorners()
+    private void createCentre()
     {
-        return CUBE_SIZE - (CORNER_SIZE * 2);
+        cubeCentre = SoftCubeCorner.createInstance(transform, CORNER_SIZE, new Vector3(), new Vector3());
     }
 
     private void createCorners()
@@ -62,16 +65,14 @@ public class SoftCube : MonoBehaviour, Cube
         corners = CubeMeshGenerator.createCorners(transform, vertices, CORNER_SIZE);
     }
 
-    //TODO: Doesn't return anything right now!
-    public Vector3 getPosition()
+    private void connectCorners()
     {
-        return new Vector3();
+
     }
 
-    //Ditto
-    public Mesh getMesh()
+    public Vector3 getPosition()
     {
-        return null;
+        return cubeCentre.getPosition();
     }
 
 }

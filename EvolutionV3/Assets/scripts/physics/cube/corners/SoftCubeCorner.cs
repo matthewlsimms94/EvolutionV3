@@ -22,7 +22,7 @@ public class SoftCubeCorner : MonoBehaviour, CubeCorner
     {
         return transform.localPosition + positionMod;
     }
-    //TODO: PARENTING
+
     public static CubeCorner createInstance(Transform parent, float size, Vector3 position, Vector3 positionMod)
     {
         GameObject createdGameObject = new GameObject("CORNER", typeof(SoftCubeCorner));
