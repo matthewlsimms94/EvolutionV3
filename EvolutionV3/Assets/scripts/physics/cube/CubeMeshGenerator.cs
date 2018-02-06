@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
-public class CubeMeshGenerator
+//TODO: SEPERATE THIS OUT?!
+public static class CubeMeshGenerator
 {
     public static Mesh createMesh(Mesh mesh, float cubeSize, float cornerSize)
     {
@@ -51,14 +51,19 @@ public class CubeMeshGenerator
         CubeCorner[] corners = new CubeCorner[8];//TODO: HARDCODEY
         for (int i = 0; i < 8; i++)
         {
-            corners[i] = SoftCubeCorner.createInstance(parent, cornerSize, cornerPositions[i], cornerSizeMod[i]);
+            CubeCornerDirections.Direction direction = (CubeCornerDirections.Direction)i;
+            corners[i] = CubeCorner.createInstance(parent, cornerSize, 
+                cornerPositions[i], cornerSizeMod[i], direction);
         }
-        corners = joinCorners(corners);
         return corners;
     }
 
-    private static CubeCorner[] joinCorners(CubeCorner[] corners)
+    public static CubeCorner[] connectCornersToCentre(CubeCorner[] corners, CubeCentre centre)
     {
+        foreach (CubeCorner corner in corners)
+        {
+            corner.connectToCentre(centre);
+        }
         return corners;
     }
 }

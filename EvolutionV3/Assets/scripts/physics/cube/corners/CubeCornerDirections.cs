@@ -2,7 +2,7 @@
 
 public static class CubeCornerDirections
 {
-    private enum Direction
+    public enum Direction
     {
         LEFT_BOTTOM_BACK,
         RIGHT_BOTTOM_BACK,
@@ -14,7 +14,7 @@ public static class CubeCornerDirections
         LEFT_BOTTOM_FRONT
     }
 
-    private static Vector3 cornerDirection(Direction direction, float scale)
+    public static Vector3 cornerDirection(Direction direction, float scale)
     {
         switch (direction) {
             case Direction.LEFT_BOTTOM_BACK:
@@ -40,54 +40,15 @@ public static class CubeCornerDirections
     public static Vector3[] allDirections(float scale)
     {
         return new Vector3[]{
-            leftBottomBack(scale),
-            rightBottomBack(scale),
-            rightTopBack(scale),
-            leftTopBack(scale),
-            leftTopFront(scale),
-            rightTopFront(scale),
-            rightBottomFront(scale),
-            leftBottomFront(scale)
+            cornerDirection(Direction.LEFT_BOTTOM_BACK, scale),
+            cornerDirection(Direction.RIGHT_BOTTOM_BACK, scale),
+            cornerDirection(Direction.RIGHT_TOP_BACK, scale),
+            cornerDirection(Direction.LEFT_TOP_BACK, scale),
+            cornerDirection(Direction.LEFT_TOP_FRONT, scale),
+            cornerDirection(Direction.RIGHT_TOP_FRONT, scale),
+            cornerDirection(Direction.RIGHT_BOTTOM_FRONT, scale),
+            cornerDirection(Direction.LEFT_BOTTOM_FRONT, scale)
         };
     }
 
-    public static Vector3 leftBottomBack(float scale)
-    {
-        return cornerDirection(Direction.LEFT_BOTTOM_BACK, scale);
-    }
-
-    public static Vector3 leftTopBack(float scale)
-    {
-        return cornerDirection(Direction.LEFT_TOP_BACK, scale);
-    }
-
-    public static Vector3 leftBottomFront(float scale)
-    {
-        return cornerDirection(Direction.LEFT_BOTTOM_FRONT, scale);
-    }
-
-    public static Vector3 leftTopFront(float scale)
-    {
-        return cornerDirection(Direction.LEFT_TOP_FRONT, scale);
-    }
-
-    public static Vector3 rightBottomBack(float scale)
-    {
-        return cornerDirection(Direction.RIGHT_BOTTOM_BACK, scale);
-    }
-
-    public static Vector3 rightTopBack(float scale)
-    {
-        return cornerDirection(Direction.RIGHT_TOP_BACK, scale);
-    }
-
-    public static Vector3 rightBottomFront(float scale)
-    {
-        return cornerDirection(Direction.RIGHT_BOTTOM_FRONT, scale);
-    }
-
-    public static Vector3 rightTopFront(float scale)
-    {
-        return cornerDirection(Direction.RIGHT_TOP_FRONT, scale);
-    }
 }
